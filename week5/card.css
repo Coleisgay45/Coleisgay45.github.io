@@ -1,0 +1,18 @@
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    color: white;
+    background-color: #407899;
+    align-items: center;
+    border-radius: 50%;
+}
+button:hover {
+    background-color: #922D50;
+    a {
+        color: white !important;
+    }
+}
