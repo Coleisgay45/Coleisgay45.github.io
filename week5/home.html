@@ -5,28 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gender Care Resources</title>
     <link rel="stylesheet" href="wa5.css">
-    <script>
-      const navToggle = document.querySelector('.nav-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      function myClick() {
-        navMenu.classList.toggle('show');
-        navToggle.classList.toggle('hide');
-        navMenu.style.display = "block";
-        navToggle.style.display = "none";
-
-        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
-        navToggle.setAttribute('aria-expanded', !isExpanded);
-
-        navToggle.classList.toggle('open');
-      }
-
-    </script>
 </head>
 <body>
     <nav class="main-nav">
-      <div class="nav-brand">Community Hub</div>
-      <button class="nav-toggle" aria-label="Toggle navigation menu" onclick="myClick()">
+      <div class="nav-brand" style="text-align: center;">Community Hub</div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" onclick="myClick()">
          <span>Menu</span>
          <span></span>
          <span></span>
@@ -38,5 +21,26 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
+
+<script>
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      function myClick() {
+        navMenu.classList.toggle('show');
+
+        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+        navToggle.setAttribute('aria-expanded', !isExpanded);
+
+        navToggle.classList.toggle('open');
+      }
+
+      navToggle.addEventListener('keydown', function(e) {
+        if (e.code === 'Space' || e.code === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          myClick();
+        }
+      });
+    </script>
 </body>
 </html>
