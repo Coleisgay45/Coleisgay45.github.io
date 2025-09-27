@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Care Resources</title>
+    <link rel="stylesheet" href="wa6.css">
+</head>
+<body>
+    <nav class="main-nav">
+      <div class="nav-brand" style="text-align: center;">Community Hub</div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" onclick="myClick()">
+         <span>Menu</span>
+         <span></span>
+         <span></span>
+     </button>
+  <ul class="nav-menu">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<script>
+      const navToggle = document.querySelector('.nav-toggle');
+      const navMenu = document.querySelector('.nav-menu');
+
+      function myClick() {
+        navMenu.classList.toggle('show');
+
+        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+        navToggle.setAttribute('aria-expanded', !isExpanded);
+
+        navToggle.classList.toggle('open');
+      }
+
+      navToggle.addEventListener('keydown', function(e) {
+        if (e.code === 'Space' || e.code === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          myClick();
+        }
+      });
+    </script>
+</body>
+</html>

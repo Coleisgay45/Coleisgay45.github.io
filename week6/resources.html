@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gender Care Resources</title>
+    <link rel="stylesheet" href="wa6.css">
+</head>
+<body>
+    <nav class="main-nav">
+      <div class="nav-brand" style="text-align: center;">Resource Hub</div>
+      <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" onclick="myClick()">
+         <span>Menu</span>
+         <span></span>
+         <span></span>
+     </button>
+  <ul class="nav-menu">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="resources.html">Resources</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="nav-search"><input type="text" placeholder="Search.." aria-label="Search resources"></li>
+  </ul>
+</nav>
+
+<div class="category-buttons" id="category-container">
+  <button class="category-btn active" data-category="all">All</button>
+  <button class="category-btn" data-category="gendercare">Gendercare</button>
+  <button class="category-btn" data-category="articles">Legal</button>
+</div>
+
+<div class="resources-content">
+
+  <div class="resources-header"><h3>Gender Care Resources</h3></div>
+  <div class="resources-list">
+    <ul> 
+    </ul>
+  </div>
+  
+  <div class="picture">
+    <img src="images/Meridian_Squares.jpg" alt="LGBTQ+ Health">
+  </div>
+
+  <div class="resources-header"><h3>Legal Resources</h3></div>
+  <div class="resources-list">
+    <ul>
+    </ul> 
+  </div>
+  
+
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // NAV TOGGLE (safe init)
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  function myClick() {
+    if (!navMenu || !navToggle) return;
+    navMenu.classList.toggle('show');
+    const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+    navToggle.setAttribute('aria-expanded', !isExpanded);
+    navToggle.classList.toggle('open');
+  }
+  if (navToggle) {
+    navToggle.addEventListener('click', myClick);
+    navToggle.addEventListener('keydown', function(e) {
+      if (e.code === 'Space' || e.code === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        myClick();
+      }
+    });
+  }
+
+  // RESOURCES data and DOM containers
+  const resources = [
+    { id: 0, title: 'Planned Parenthood', url: 'https://www.plannedparenthood.org/learn', category: 'gendercare' },
+    { id: 1, title: 'GLAAD Resource List', url: 'https://www.glaad.org/resourcelist', category: 'gendercare' },
+    { id: 2, title: 'The Trevor Project Resources', url: 'https://www.thetrevorproject.org/resources/', category: 'gendercare' },
+    { id: 3, title: 'Transgender Affirming Care Referral List', url: 'https://www.colorado.edu/culturalconnections/sites/default/files/2025-01/Transgender_Gender-Affirming%20Referral%20%26%20Resource%20List.pdf', category: 'gendercare' },
+    { id: 4, title: 'ACLU LGBTQ Rights', url: 'https://www.aclu.org/issues/lgbtq-rights', category: 'articles' },
+    { id: 5, title: 'Lambda Legal', url: 'https://www.lambdalegal.org/', category: 'articles' },
+    { id: 6, title: 'National Center', url: 'https://www.nclrights.org/', category: 'articles' }
+  ];
+
+  const lists = Array.from(document.querySelectorAll('.resources-list ul'));
+  const headers = Array.from(document.querySelectorAll('.resources-header'));
+  const searchInput = document.querySelector('.nav-menu input[type="text"]');
+  const categoryContainer = document.getElementById('category-container');
+   const resourcesContent = document.querySelector('.resources-content');
+
+   // keep original order to restore when 'all' is selected
+   const originalOrder = resourcesContent ? Array.from(resourcesContent.children) : [];
+
+  // populate lists: first list -> tutorials, second -> articles
+  function populate() {
+    lists.forEach(ul => ul.innerHTML = '');
+    resources.forEach(r => {
+      const li = document.createElement('li');
+      li.dataset.category = r.category;
+      const a = document.createElement('a');
+      a.href = r.url;
+      a.textContent = r.title;
+      li.appendChild(a);
+      if (r.category === 'gendercare') {
+        if (lists[0]) lists[0].appendChild(li);
+      } else if (r.category === 'articles') {
+        if (lists[1]) lists[1].appendChild(li);
+      }
+    });
+  }
+
+  populate();
+
+  // Helper: get all list item elements
+  function getListItems() {
+    return Array.from(document.querySelectorAll('.resources-list li'));
+  }
+
+  // Filter by search query and active category
+  function applyFilters() {
+    const q = (searchInput && searchInput.value || '').trim().toLowerCase();
+    const activeBtn = categoryContainer ? categoryContainer.querySelector('.category-btn.active') : null;
+    const activeCategory = activeBtn ? activeBtn.dataset.category : 'all';
+    const items = getListItems();
+    items.forEach(item => {
+      const text = item.textContent.toLowerCase();
+      const matchesQuery = !q || text.includes(q);
+      let itemCategory = item.dataset.category || '';
+      const matchesCategory = activeCategory === 'all' || activeCategory === itemCategory;
+      item.style.display = (matchesQuery && matchesCategory) ? '' : 'none';
+    });
+
+    // toggle headers: show only the relevant header for the active category
+    if (headers && headers.length) {
+      if (activeCategory === 'all') {
+        headers.forEach(h => h.style.display = '');
+      } else {
+        headers.forEach((h, idx) => {
+          if (idx === 0) {
+            // first header corresponds to 'tutorials'
+            h.style.display = activeCategory === 'gendercare' ? '' : 'none';
+          } else if (idx === 1) {
+            // second header corresponds to 'articles'
+            h.style.display = activeCategory === 'articles' ? '' : 'none';
+          } else {
+            h.style.display = 'none';
+          }
+        });
+      }
+    }
+  }
+
+  // Search listeners
+  if (searchInput) {
+    searchInput.addEventListener('input', applyFilters);
+    searchInput.addEventListener('keyup', (e) => { if (e.key === 'Enter') applyFilters(); });
+  }
+
+  // Category buttons
+  if (categoryContainer) {
+    categoryContainer.addEventListener('click', (e) => {
+      const btn = e.target.closest('.category-btn');
+      if (!btn) return;
+      categoryContainer.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+       const activeCategory = btn.dataset.category;
+       // move the relevant category section to the top (or restore original order for 'all')
+       moveSectionToTop(activeCategory);
+       applyFilters();
+    });
+  }
+
+   // Move the header+list for the selected category to the top of the resources content.
+   function moveSectionToTop(category) {
+     if (!resourcesContent) return;
+     // restore original if 'all'
+     if (category === 'all') {
+       // append nodes in original order
+       originalOrder.forEach(node => resourcesContent.appendChild(node));
+       return;
+     }
+
+     // find header/list pairs
+     const headers = Array.from(resourcesContent.querySelectorAll('.resources-header'));
+     let targetHeader = null;
+     let targetList = null;
+     headers.forEach(h => {
+       const maybeList = h.nextElementSibling && h.nextElementSibling.classList && h.nextElementSibling.classList.contains('resources-list') ? h.nextElementSibling : null;
+       if (!maybeList) return;
+       // determine this section's category by looking at the first li data-category (if present)
+       const firstLi = maybeList.querySelector('li');
+       const sectionCategory = firstLi ? firstLi.dataset.category : null;
+       // fallback: map index (first -> tutorials, second -> articles)
+       if (!sectionCategory) {
+         const idx = headers.indexOf(h);
+         if (idx === 0) {
+           if (category === 'gendercare') { targetHeader = h; targetList = maybeList; }
+         } else if (idx === 1) {
+           if (category === 'articles') { targetHeader = h; targetList = maybeList; }
+         }
+       } else {
+         if (sectionCategory === category) { targetHeader = h; targetList = maybeList; }
+       }
+     });
+
+     if (targetHeader && targetList) {
+       // insert header then list at the top in that order
+       resourcesContent.insertBefore(targetHeader, resourcesContent.firstChild);
+       resourcesContent.insertBefore(targetList, targetHeader.nextSibling);
+     }
+   }
+
+});
+</script>
+</body>
+</html>
