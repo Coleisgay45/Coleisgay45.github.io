@@ -23,6 +23,15 @@
 </nav>
 
 <script>
+      const fontSize = localStorage.getItem('fontSize') || 'medium';
+      const fontSizeMap = {
+        small: '14px',
+        medium: '18px',
+        large: '22px'
+      };
+      const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+      document.documentElement.style.fontSize = fontSizeMap[savedFontSize];
+
       const navToggle = document.querySelector('.nav-toggle');
       const navMenu = document.querySelector('.nav-menu');
 
@@ -41,10 +50,6 @@
           myClick();
         }
       });
-
-      // Example: Font size preference
-      const fontSize = localStorage.getItem('fontSize') || 'medium';
-      document.documentElement.style.fontSize = fontSize;
     </script>   
 </body>
 </html>
