@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="main-nav">
-      <div class="nav-brand" style="text-align: center;">Community Hub</div>
+      <div class="nav-brand" style="text-align: center;">Settings</div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" onclick="myClick()">
          <span>Menu</span>
          <span></span>
@@ -21,6 +21,15 @@
     <li><a href="settings.html">Settings</a></li>
   </ul>
 </nav>
+
+<div class="a11y-controls">
+  <label for="font-size-select">Font Size:</label>
+  <select id="font-size-select">
+    <option value="small">Small</option>
+    <option value="medium">Medium</option>
+    <option value="large">Large</option>
+  </select>
+</div>
 
 <script>
       const navToggle = document.querySelector('.nav-toggle');
@@ -42,9 +51,30 @@
         }
       });
 
-      // Example: Font size preference
-      const fontSize = localStorage.getItem('fontSize') || 'medium';
-      document.documentElement.style.fontSize = fontSize;
+      document.addEventListener('DOMContentLoaded', () => {
+
+    // Accessibility settings integration
+    const fontSize = localStorage.getItem('fontSize') || 'medium';
+    const fontSizeMap = {
+      small: '14px',
+      medium: '18px',
+      large: '22px'
+    };
+    const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+    document.documentElement.style.fontSize = fontSizeMap[savedFontSize];
+    const fontSizeSelect = document.getElementById('font-size-select');
+    if (fontSizeSelect) {
+      fontSizeSelect.value = savedFontSize;
+      fontSizeSelect.addEventListener('change', function() {
+        const newSize = fontSizeSelect.value;
+        localStorage.setItem('fontSize', newSize);
+        document.documentElement.style.fontSize = fontSizeMap[newSize];
+      });
+    }
+
+
+});
+
     </script>   
 </body>
 </html>

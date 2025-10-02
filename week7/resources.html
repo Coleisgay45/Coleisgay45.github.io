@@ -18,7 +18,7 @@
     <li><a href="home.html">Home</a></li>
     <li><a href="resources.html">Resources</a></li>
     <li><a href="#events">Events</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a href="settings.html">Settings</a></li>
     <li class="nav-search"><input type="text" placeholder="Search.." aria-label="Search resources"></li>
   </ul>
 </nav>
@@ -51,7 +51,19 @@
 </div>
 
 <script>
+  // Example: Font size preference
+const fontSize = localStorage.getItem('fontSize') || 'medium';
+const fontSizeMap = {
+  small: '14px',
+  medium: '18px',
+  large: '22px'
+};
+const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+document.documentElement.style.fontSize = fontSizeMap[savedFontSize];
+
+
 document.addEventListener('DOMContentLoaded', () => {
+
   // NAV TOGGLE (safe init)
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('.nav-menu');
@@ -213,17 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
    }
 
 });
-
-
-  // Save accessibility settings
-  function saveA11ySettings(settings) {
-      localStorage.setItem('a11yPrefs', JSON.stringify(settings));
-      applyA11ySettings(settings);
-  }
-
-  // Example: Font size preference
-  const fontSize = localStorage.getItem('fontSize') || 'medium';
-  document.documentElement.style.fontSize = fontSize;
+  
 </script>
 </body>
 </html>
