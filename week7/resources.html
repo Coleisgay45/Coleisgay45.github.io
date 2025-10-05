@@ -58,16 +58,16 @@
       //   dark: { bg: '#121212', text: '#f4ecd8' },
       //   sepia: { bg: '#f4ecd8', text: '#5b4636' }
       // };
-      // const fontSize = localStorage.getItem('fontSize') || 'medium';
-      // const fontSizeMap = {
-      //   small: '14px',
-      //   medium: '18px',
-      //   large: '22px'
-      // };
+      const fontSize = localStorage.getItem('fontSize') || 'medium';
+      const fontSizeMap = {
+        small: '14px',
+        medium: '18px',
+        large: '22px'
+      };
       // const savedBgColor = localStorage.getItem('bgColor') || 'light';
       // document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
-      // const savedFontSize = localStorage.getItem('fontSize') || 'medium';
-      // document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
+      const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+      document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
 
 
 document.addEventListener('DOMContentLoaded', () => {

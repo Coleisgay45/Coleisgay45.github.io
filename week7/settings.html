@@ -53,6 +53,7 @@
         const bgColorSelect = document.getElementById('background-color-select');
         if (fontSizeSelect) fontSizeSelect.value = 'medium';
         if (bgColorSelect) bgColorSelect.value = 'light';
+        location.reload(); 
       }
 
       const bgColor = localStorage.getItem('bgColor') || 'light';
