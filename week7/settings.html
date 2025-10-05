@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="wa6.css">
 </head>
 <body>
-    <nav class="main-nav">
+  <nav class="main-nav">
       <div class="nav-brand" style="text-align: center;">Settings</div>
       <button class="nav-toggle" type="button" aria-label="Toggle navigation menu" onclick="myClick()">
          <span>Menu</span>
@@ -23,7 +23,8 @@
 </nav>
 
 <div class="a11y-controls">
-  <button onclick="clear()">Reset to Default</button>
+  <button type="button" onclick="clear()">Reset to Default</button>
+   <!-- <button type="button" onclick="alert('clicked')">Test Button</button> -->
   <hr>
   <label for="font-size-select">Font Size:</label>
   <select id="font-size-select">
@@ -41,100 +42,87 @@
 </div>
 
 <script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navMenu = document.querySelector('.nav-menu');
 
-      //clearing the localstorage
-      function clear() {
-        localStorage.removeItem('fontSize');
-        localStorage.removeItem('bgColor');
-        document.querySelector("html").style.fontSize = '18px'; // medium
-        document.body.style.backgroundColor = '#ffffff'; // light
-        document.body.style.color = '#222222'; // light text
-        const fontSizeSelect = document.getElementById('font-size-select');
-        const bgColorSelect = document.getElementById('background-color-select');
-        if (fontSizeSelect) fontSizeSelect.value = 'medium';
-        if (bgColorSelect) bgColorSelect.value = 'light';
-        location.reload(); 
-      }
+function myClick() {
+  if (!navToggle || !navMenu) return;
+  navMenu.classList.toggle('show');
+  const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+  navToggle.setAttribute('aria-expanded', !isExpanded);
+  navToggle.classList.toggle('open');
+}
 
-      const bgColor = localStorage.getItem('bgColor') || 'light';
-      const bgColorMap = {
-        light: { bg: '#ffffff', text: '#222222' },
-        dark: { bg: '#121212', text: '#f4ecd8' },
-        sepia: { bg: '#f4ecd8', text: '#5b4636' }
-      };
-      const fontSize = localStorage.getItem('fontSize') || 'medium';
-      const fontSizeMap = {
-        small: '14px',
-        medium: '18px',
-        large: '22px'
-      };
-      const savedBgColor = localStorage.getItem('bgColor') || 'light';
-      document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
-      const savedFontSize = localStorage.getItem('fontSize') || 'medium';
-      document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
-
-      const navToggle = document.querySelector('.nav-toggle');
-      const navMenu = document.querySelector('.nav-menu');
-
-      function myClick() {
-        navMenu.classList.toggle('show');
-
-        const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
-        navToggle.setAttribute('aria-expanded', !isExpanded);
-
-        navToggle.classList.toggle('open');
-      }
-
-      navToggle.addEventListener('keydown', function(e) {
-        if (e.code === 'Space' || e.code === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          myClick();
-        }
-      });
-
-    document.addEventListener('DOMContentLoaded', () => {
-
-    // Accessibility settings integration
-    const fontSize = localStorage.getItem('fontSize') || 'medium';
-    const fontSizeMap = {
-      small: '14px',
-      medium: '18px',
-      large: '22px'
-    };
-    const savedFontSize = localStorage.getItem('fontSize') || 'medium';
-    document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
-    const fontSizeSelect = document.getElementById('font-size-select');
-    if (fontSizeSelect) {
-      fontSizeSelect.value = savedFontSize;
-      fontSizeSelect.addEventListener('change', function() {
-        const newSize = fontSizeSelect.value;
-        localStorage.setItem('fontSize', newSize);
-        document.querySelector("html").style.fontSize = fontSizeMap[newSize];
-      });
+if (navToggle) {
+  navToggle.addEventListener('keydown', function(e) {
+    if (e.code === 'Space' || e.code === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      myClick();
     }
+  });
+}
 
-    // Background color preference
-    const bgColorSelect = document.getElementById('background-color-select');
-    const bgColorMap = {
-      light: { bg: '#ffffff', text: '#222222' },
-      dark: { bg: '#121212', text: '#f4ecd8' },
-      sepia: { bg: '#f4ecd8', text: '#5b4636' }
-    };
-    const savedBgColor = localStorage.getItem('bgColor') || 'light';
+//clearing the localstorage
+function clear() {
+  console.log("Reset button clicked");
+  localStorage.removeItem('fontSize');
+  localStorage.removeItem('bgColor');
+  location.reload();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Font size
+  const fontSizeMap = {
+    small: '14px',
+    medium: '18px',
+    large: '22px'
+  };
+  const fontSizeSelect = document.getElementById('font-size-select');
+  let savedFontSize = localStorage.getItem('fontSize');
+  if (!savedFontSize) {
+    savedFontSize = 'medium'; // fallback to default
+    if (fontSizeSelect) fontSizeSelect.value = 'medium';
+    document.querySelector("html").style.fontSize = fontSizeMap['medium'];
+  } else {
+    document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
+    if (fontSizeSelect) fontSizeSelect.value = savedFontSize;
+  }
+  if (fontSizeSelect) {
+    fontSizeSelect.addEventListener('change', function() {
+      const newSize = fontSizeSelect.value;
+      localStorage.setItem('fontSize', newSize);
+      document.querySelector("html").style.fontSize = fontSizeMap[newSize];
+    });
+  }
+
+  // Background color
+  const bgColorMap = {
+    light: { bg: '#ffffff', text: '#222222' },
+    dark: { bg: '#121212', text: '#f4ecd8' },
+    sepia: { bg: '#f4ecd8', text: '#5b4636' }
+  };
+  const bgColorSelect = document.getElementById('background-color-select');
+  let savedBgColor = localStorage.getItem('bgColor');
+  if (!savedBgColor) {
+    savedBgColor = 'light'; // fallback to default
+    if (bgColorSelect) bgColorSelect.value = 'light';
+    document.body.style.backgroundColor = bgColorMap['light'].bg;
+    document.body.style.color = bgColorMap['light'].text;
+  } else {
     document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
     document.body.style.color = bgColorMap[savedBgColor].text;
-    if (bgColorSelect) {
-      bgColorSelect.value = savedBgColor;
-      bgColorSelect.addEventListener('change', function() {
-        const newColor = bgColorSelect.value;
-        localStorage.setItem('bgColor', newColor);
-        document.body.style.backgroundColor = bgColorMap[newColor].bg;
-        document.body.style.color = bgColorMap[newColor].text;
-      });
-    }
-
+    if (bgColorSelect) bgColorSelect.value = savedBgColor;
+  }
+  if (bgColorSelect) {
+    bgColorSelect.addEventListener('change', function() {
+      const newColor = bgColorSelect.value;
+      localStorage.setItem('bgColor', newColor);
+      document.body.style.backgroundColor = bgColorMap[newColor].bg;
+      document.body.style.color = bgColorMap[newColor].text;
+    });
+  }
 });
 
-    </script>   
+</script>   
 </body>
 </html>
