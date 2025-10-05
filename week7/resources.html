@@ -51,15 +51,23 @@
 </div>
 
 <script>
-  // Example: Font size preference
-const fontSize = localStorage.getItem('fontSize') || 'medium';
-const fontSizeMap = {
-  small: '14px',
-  medium: '18px',
-  large: '22px'
-};
-const savedFontSize = localStorage.getItem('fontSize') || 'medium';
-document.documentElement.style.fontSize = fontSizeMap[savedFontSize];
+
+      // const bgColor = localStorage.getItem('bgColor') || 'light';
+      // const bgColorMap = {
+      //   light: { bg: '#ffffff', text: '#222222' },
+      //   dark: { bg: '#121212', text: '#f4ecd8' },
+      //   sepia: { bg: '#f4ecd8', text: '#5b4636' }
+      // };
+      // const fontSize = localStorage.getItem('fontSize') || 'medium';
+      // const fontSizeMap = {
+      //   small: '14px',
+      //   medium: '18px',
+      //   large: '22px'
+      // };
+      // const savedBgColor = localStorage.getItem('bgColor') || 'light';
+      // document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
+      // const savedFontSize = localStorage.getItem('fontSize') || 'medium';
+      // document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
 
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -67,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // NAV TOGGLE (safe init)
   const navToggle = document.querySelector('.nav-toggle');
   const navMenu = document.querySelector('.nav-menu');
+
   function myClick() {
     if (!navMenu || !navToggle) return;
     navMenu.classList.toggle('show');
@@ -100,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const headers = Array.from(document.querySelectorAll('.resources-header'));
   const searchInput = document.querySelector('.nav-menu input[type="text"]');
   const categoryContainer = document.getElementById('category-container');
-   const resourcesContent = document.querySelector('.resources-content');
+  const resourcesContent = document.querySelector('.resources-content');
 
    // keep original order to restore when 'all' is selected
    const originalOrder = resourcesContent ? Array.from(resourcesContent.children) : [];

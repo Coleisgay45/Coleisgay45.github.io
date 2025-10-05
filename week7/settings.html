@@ -23,15 +23,38 @@
 </nav>
 
 <div class="a11y-controls">
+  <button onclick="clear()">Reset to Default</button>
+  <hr>
   <label for="font-size-select">Font Size:</label>
   <select id="font-size-select">
     <option value="small">Small</option>
     <option value="medium">Medium</option>
     <option value="large">Large</option>
   </select>
+  <p> </p>
+  <label for="background-color-select">Background Color:</label>
+  <select id="background-color-select">
+    <option value="light">Light</option>
+    <option value="dark">Dark</option>
+    <option value="sepia">Sepia</option>
+  </select>
 </div>
 
 <script>
+
+      //clearing the localstorage
+      function clear() {
+        localStorage.removeItem('fontSize');
+        localStorage.removeItem('bgColor');
+        document.querySelector("html").style.fontSize = '18px'; // medium
+        document.body.style.backgroundColor = '#ffffff'; // light
+        document.body.style.color = '#222222'; // light text
+        const fontSizeSelect = document.getElementById('font-size-select');
+        const bgColorSelect = document.getElementById('background-color-select');
+        if (fontSizeSelect) fontSizeSelect.value = 'medium';
+        if (bgColorSelect) bgColorSelect.value = 'light';
+      }
+
       const navToggle = document.querySelector('.nav-toggle');
       const navMenu = document.querySelector('.nav-menu');
 
@@ -51,7 +74,7 @@
         }
       });
 
-      document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', () => {
 
     // Accessibility settings integration
     const fontSize = localStorage.getItem('fontSize') || 'medium';
@@ -61,17 +84,36 @@
       large: '22px'
     };
     const savedFontSize = localStorage.getItem('fontSize') || 'medium';
-    document.documentElement.style.fontSize = fontSizeMap[savedFontSize];
+    document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
     const fontSizeSelect = document.getElementById('font-size-select');
     if (fontSizeSelect) {
       fontSizeSelect.value = savedFontSize;
       fontSizeSelect.addEventListener('change', function() {
         const newSize = fontSizeSelect.value;
         localStorage.setItem('fontSize', newSize);
-        document.documentElement.style.fontSize = fontSizeMap[newSize];
+        document.querySelector("html").style.fontSize = fontSizeMap[newSize];
       });
     }
 
+    // Background color preference
+    const bgColorSelect = document.getElementById('background-color-select');
+    const bgColorMap = {
+      light: { bg: '#ffffff', text: '#222222' },
+      dark: { bg: '#121212', text: '#f4ecd8' },
+      sepia: { bg: '#f4ecd8', text: '#5b4636' }
+    };
+    const savedBgColor = localStorage.getItem('bgColor') || 'light';
+    document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
+    document.body.style.color = bgColorMap[savedBgColor].text;
+    if (bgColorSelect) {
+      bgColorSelect.value = savedBgColor;
+      bgColorSelect.addEventListener('change', function() {
+        const newColor = bgColorSelect.value;
+        localStorage.setItem('bgColor', newColor);
+        document.body.style.backgroundColor = bgColorMap[newColor].bg;
+        document.body.style.color = bgColorMap[newColor].text;
+      });
+    }
 
 });
 
