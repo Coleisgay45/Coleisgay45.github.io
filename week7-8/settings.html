@@ -15,10 +15,10 @@
          <span></span>
      </button>
   <ul class="nav-menu">
-    <li><a href="/week7/home.html">Home</a></li>
-    <li><a href="/week7/resources.html">Resources</a></li>
+    <li><a href="/week7-8/home.html">Home</a></li>
+    <li><a href="/week7-8/resources.html">Resources</a></li>
     <li><a href="#events">Events</a></li>
-    <li><a href="/week7/settings.html">Settings</a></li>
+    <li><a href="/week7-8/settings.html">Settings</a></li>
   </ul>
 </nav>
 
@@ -82,12 +82,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!savedFontSize) {
     savedFontSize = 'medium'; // fallback to default
     if (fontSizeSelect) fontSizeSelect.value = 'medium';
-    document.querySelector("html").style.fontSize = fontSizeMap['medium'];
-  } else {
-    document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
-    if (fontSizeSelect) fontSizeSelect.value = savedFontSize;
   }
+  document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
   if (fontSizeSelect) {
+    fontSizeSelect.value = savedFontSize;
     fontSizeSelect.addEventListener('change', function() {
       const newSize = fontSizeSelect.value;
       localStorage.setItem('fontSize', newSize);
@@ -106,14 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!savedBgColor) {
     savedBgColor = 'light'; // fallback to default
     if (bgColorSelect) bgColorSelect.value = 'light';
-    document.body.style.backgroundColor = bgColorMap['light'].bg;
-    document.body.style.color = bgColorMap['light'].text;
-  } else {
-    document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
-    document.body.style.color = bgColorMap[savedBgColor].text;
-    if (bgColorSelect) bgColorSelect.value = savedBgColor;
   }
+  document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
+  document.body.style.color = bgColorMap[savedBgColor].text;
   if (bgColorSelect) {
+    bgColorSelect.value = savedBgColor;
     bgColorSelect.addEventListener('change', function() {
       const newColor = bgColorSelect.value;
       localStorage.setItem('bgColor', newColor);

@@ -108,8 +108,16 @@
   /* font-size: 12px; */
 }
 
+.hub-content {
+    margin: 1rem;
+    padding: 1rem;
+    color: black;
+    position: relative;
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    align-items: start;
+}
+
 .resources-content {
-    font-size: large;
     display: grid;
     /* layout: main content + picture column; picture aligns with first list only */
     grid-template-columns: 1fr 280px;
@@ -165,6 +173,13 @@
     width: 100%;
     height: auto;
     display: block;
+}
+
+.flag-picture img {
+    width: 100% !important;
+    height: 350px !important;
+    display: block;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
