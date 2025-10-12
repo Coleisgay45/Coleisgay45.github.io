@@ -17,7 +17,6 @@
   <ul class="nav-menu">
     <li><a href="/week7-8/home.html">Home</a></li>
     <li><a href="/week7-8/resources.html">Resources</a></li>
-    <li><a href="#events">Events</a></li>
     <li><a href="/week7-8/settings.html">Settings</a></li>
     <li class="nav-search"><input type="text" placeholder="Search.." aria-label="Search resources"></li>
   </ul>
@@ -36,10 +35,8 @@
     <ul> 
     </ul>
   </div>
-  
-  <div class="picture">
-    <img src="images/Meridian_Squares.jpg" alt="LGBTQ+ Health">
-  </div>
+
+  <hr>
 
   <div class="resources-header"><h3>Legal Resources</h3></div>
   <div class="resources-list">
@@ -52,22 +49,19 @@
 
 <script>
 
-      // const bgColor = localStorage.getItem('bgColor') || 'light';
-      // const bgColorMap = {
-      //   light: { bg: '#ffffff', text: '#222222' },
-      //   dark: { bg: '#121212', text: '#f4ecd8' },
-      //   sepia: { bg: '#f4ecd8', text: '#5b4636' }
-      // };
-      const fontSize = localStorage.getItem('fontSize') || 'medium';
-      const fontSizeMap = {
-        small: '14px',
-        medium: '18px',
-        large: '22px'
-      };
-      // const savedBgColor = localStorage.getItem('bgColor') || 'light';
-      // document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
-      const savedFontSize = localStorage.getItem('fontSize') || 'medium';
-      document.querySelector("html").style.fontSize = fontSizeMap[savedFontSize];
+      const bgColorMap = {
+      light: { bg: '#ffffff', text: '#222222' },
+      dark: { bg: '#121212', text: '#f4ecd8' },
+      sepia: { bg: '#f4ecd8', text: '#5b4636' }
+    };
+    const bgColorSelect = document.getElementById('background-color-select');
+    let savedBgColor = localStorage.getItem('bgColor');
+    if (!savedBgColor) {
+      savedBgColor = 'light'; // fallback to default
+      if (bgColorSelect) bgColorSelect.value = 'light';
+    }
+    document.body.style.backgroundColor = bgColorMap[savedBgColor].bg;
+    document.body.style.color = bgColorMap[savedBgColor].text;
 
 
 document.addEventListener('DOMContentLoaded', () => {
