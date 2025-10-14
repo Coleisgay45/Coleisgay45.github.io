@@ -1,0 +1,21 @@
+body {
+    align-items: center;
+    align-content: center;
+}
+
+.button {
+    width: 100px;
+    position: relative;
+    align-items: center;
+    text-align: center;
+    background-color: lightblue;
+    border-radius: 10px;
+}
+.button:hover {
+    transition: background-color 0.5s ease;
+    background-color: blue;
+    color: white;
+}
+.button:active {
+    transform: translateY(4px);
+}
