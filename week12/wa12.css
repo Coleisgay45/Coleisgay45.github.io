@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    justify-content: center;
+    text-align: center;
+    margin: 0;
+    padding: 1rem;
+}
+
+.content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}   
+
+#filterButton {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+} 
+
+
+/* Container for recommended videos */
+#recommended {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+/* Each video card */
+#recommended div {
+  flex: 1 1 320px; /* flexible width, minimum 320px */
+  max-width: 480px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 0.5rem;
+  text-align: center;
+}
+
+/* Video title */
+#recommended h3 {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+/* Responsive iframe wrapper */
+#recommended iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9; /* keeps proper video ratio */
+  border-radius: 6px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  #recommended {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #recommended div {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #recommended h3 {
+    font-size: 0.9rem;
+  }
+}
