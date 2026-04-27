@@ -10,6 +10,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     updateIcon();
 
+    // Handle window resize
+    window.addEventListener("resize", () => {
+        if (x > window.innerWidth - 80) {
+            x = window.innerWidth - 80;
+        }
+        if (y > window.innerHeight) {
+            y = window.innerHeight / 2;
+        }
+        updateIcon();
+    });
+ 
     audio.autoplay = true;
     audio.muted = true;
     audio.play().catch(() => {});
@@ -17,11 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("keydown", (event) => {
         switch (event.code) {
             case "ArrowLeft":
-                angle -= 5;
+                angle -= 1;
                 break;
 
             case "ArrowRight":
-                angle += 5;
+                angle += 1;
                 break;
 
             case "Space":
@@ -36,10 +47,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const rad = (angle - 90) * (Math.PI / 180);
         const dx = Math.cos(rad) * 5;
         const dy = Math.sin(rad) * 5;
+        
+        const startX = x;
+        const startY = y;
+        let distance = 0;
 
         const interval = setInterval(() => {
+            distance += 5;
+            
+            // Add parabolic arc - vertical offset based on distance
+            const arcHeight = 100;
+            const arc = -4 * arcHeight * (distance / window.innerWidth) * (1 - distance / window.innerWidth);
+            
             x += dx;
-            y += dy;
+            y = startY + (dy * distance / 5) + arc;
             updateIcon();
 
             const sliderX = window.innerWidth - 80;
@@ -48,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearInterval(interval);
                 
                 // Map y position to volume (0-1)
-                const sliderHeight = window.innerHeight * 1.08;
+                const sliderHeight = window.innerHeight;
                 const volume = Math.max(0, Math.min(1, 1 - (y / sliderHeight)));
                 volumeSlider.value = volume;
                 audio.volume = volume;

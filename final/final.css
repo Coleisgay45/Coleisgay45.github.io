@@ -1,16 +1,15 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #a9a9a9;
-    padding: 20px;
     display: flex;
     margin: 0;
     height: 100vh;
+    overflow: hidden;
     /* cursor: none; */
 }
 
 header {
     text-align: center;
-    margin-bottom: 20px;
 }
 
 p {
@@ -38,6 +37,7 @@ p {
     width: 40px;
     height: 90vh;          
     cursor: none;
+    pointer-events: none;
 }
 
 #volume-label, #volume {
@@ -47,7 +47,6 @@ p {
 
 .content {
     flex: 1;
-    padding: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -58,9 +57,7 @@ p {
 }   
 
 footer {
-    margin-top: auto;
     text-align: center;
-    padding: 10px 0;
 }
 
 #icon {
