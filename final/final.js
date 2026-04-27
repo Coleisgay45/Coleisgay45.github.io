@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let y = window.innerHeight / 2;
     let angle = 90;
     const speed = 6;
-    
+
     updateIcon();
 
     audio.autoplay = true;
@@ -42,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
             y += dy;
             updateIcon();
 
-            // Check if icon reached the slider
             const sliderX = window.innerWidth - 80;
             if (x >= sliderX) {
                 x = sliderX;
@@ -64,7 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 1000);
             }
 
-            // Stop when it's off-screen
             if (
                 x < -100 ||
                 x > window.innerWidth + 100 ||
@@ -73,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
             ) {
                 clearInterval(interval);
             }
-        }, 16); // ~60fps
+        }, 16);
     }
 
 
