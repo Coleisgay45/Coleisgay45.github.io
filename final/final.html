@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="final.css">
+</head>
+<body>
+    <div class="content">
+        <header>
+            <h1>Final Project - Cole Irish</h1>
+            <p>Use left and right arrow keys to rotate the icon. Use space to send the icon to the volume slider.</p>
+        </header>
+
+        <div class="audio">
+            <audio id="myAudio" src="./background.mp3" controls autoplay muted></audio>
+        </div>
+
+        <div id="icon">
+
+        </div> 
+
+        <footer>
+            <p>Music by Bosnow</p>
+        </footer>
+    </div>
+
+    <div class="slider">
+        <label id="volume-label" for="volume">Volume</label>
+        <input type="range" id="volume" class="vertical-slider" min="0" max="1" step="0.01" value="0.5">
+    </div>
+
+    <script src="final.js" defer></script>
+</body>
+</html>
