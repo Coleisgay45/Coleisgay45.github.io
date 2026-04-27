@@ -7,11 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let y = window.innerHeight / 2;
     let angle = 90;
     const speed = 6;
-
-    // Set initial position and rotation
+    
     updateIcon();
 
-    // Start muted autoplay
     audio.autoplay = true;
     audio.muted = true;
     audio.play().catch(() => {});
