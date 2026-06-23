@@ -1,0 +1,29 @@
+h1, h2 {
+  color: green;
+}
+
+ul {
+  border: 2px solid orange;
+}
+
+ol {
+  border: 2px solid purple;
+}
+
+ol, ul {
+  padding: 5px 20px;
+  border-radius: 4px;
+}
+
+h1, strong {
+  color: purple;
+  text-decoration: underline;
+}
+
+h2 {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+em {
+  color: gray;
+}
